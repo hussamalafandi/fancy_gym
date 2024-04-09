@@ -101,7 +101,7 @@ class TableTennisEnv(MujocoEnv, utils.EzPickle):
             try:
                 self.do_simulation(action, 1)
             except Exception as e:
-                print("Simulation get unstable return with MujocoException: ", e)
+                print("Simulation get unstable return.")
                 unstable_simulation = True
                 self._terminated = True
                 break

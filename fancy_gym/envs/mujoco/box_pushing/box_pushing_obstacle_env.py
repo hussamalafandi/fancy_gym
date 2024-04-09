@@ -64,7 +64,7 @@ class BoxPushingObstacleEnvBase(MujocoEnv, utils.EzPickle):
         try:
             self.do_simulation(resultant_action, self.frame_skip)
         except Exception as e:
-            print(e)
+            print('Simulation Unstable')
             unstable_simulation = True
 
         self._steps += 1

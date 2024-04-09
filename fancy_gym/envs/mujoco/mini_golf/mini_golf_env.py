@@ -118,7 +118,7 @@ class MiniGolfEnv(MujocoEnv, utils.EzPickle):
             try:
                 self.do_simulation(resultant_action, 1)
             except Exception as e:
-                print(e)
+                print("Simulation Unstable")
                 unstable_simulation = True
                 break
 
