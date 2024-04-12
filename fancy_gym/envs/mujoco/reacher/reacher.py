@@ -92,16 +92,29 @@ class ReacherEnv(MujocoEnv, utils.EzPickle):
             return self.set_context(options['ctxt'])
 
     def set_context(self, context):
-        qpos = self.data.qpos
+        qpos = (
+            # self.np_random.uniform(low=-0.1, high=0.1, size=self.model.nq) +
+            self.init_qpos.copy()
+        )
+
         self.goal = context
         qpos[-2:] = context
-        qvel = self.data.qvel
-        qvel[-2:] = 0
-        self.set_state(qpos, qvel)
-        self.tip_traj[0, :] = self.get_body_com("fingertip")[:2]
-        self.joint_traj[0, :] = self.data.qpos.flat[:self.n_links]
 
+        qvel = (
+            # self.np_random.uniform(low=-0.005, high=0.005, size=self.model.nv) +
+            self.init_qvel.copy()
+        )
+        qvel[-2:] = 0
+
+        self.set_state(qpos, qvel)
+        self._steps = 0
         self._context  = context
+
+        self.tip_traj = np.zeros((MAX_EPISODE_STEPS_REACHER + 1, 2))
+        self.joint_traj = np.zeros((MAX_EPISODE_STEPS_REACHER + 1, self.n_links))
+        self.tip_traj[0, :] = self.get_body_com("fingertip")[:2].copy()
+        self.joint_traj[0, :] = self.data.qpos.flat[:self.n_links].copy()
+
         return self._get_obs()
 
     def get_context(self):
