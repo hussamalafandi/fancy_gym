@@ -176,6 +176,10 @@ class ReacherEnv(MujocoEnv, utils.EzPickle):
     def get_np_random(self):
         return self._np_random
 
+    @property
+    def episode_length(self):
+        return MAX_EPISODE_STEPS_REACHER
+
 
 if __name__ == '__main__':
 
