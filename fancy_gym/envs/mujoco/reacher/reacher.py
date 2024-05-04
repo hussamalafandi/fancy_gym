@@ -70,7 +70,7 @@ class ReacherEnv(MujocoEnv, utils.EzPickle):
         return -self._reward_weight * np.linalg.norm(vec)
 
     def velocity_reward(self):
-        return -10 * np.square(self.data.qvel.flat[:self.n_links]).sum() if self.sparse else 0.0
+        return -np.square(self.data.qvel.flat[:self.n_links]).sum() if self.sparse else 0.0
 
     def viewer_setup(self):
         self.viewer.cam.trackbodyid = 0
