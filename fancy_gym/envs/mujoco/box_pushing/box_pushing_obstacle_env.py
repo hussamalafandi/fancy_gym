@@ -412,6 +412,10 @@ class BoxPushingObstacleEnvBase(MujocoEnv, utils.EzPickle):
     def _get_rotation_dist(self, box_quat, target_quat, target_quat2, target_quat3, target_quat4):
         raise NotImplementedError
 
+    @property
+    def episode_length(self):
+        return MAX_EPISODE_STEPS_BOX_PUSHING
+
 
 class BoxPushingObstacleDense(BoxPushingObstacleEnvBase):
     def __init__(self, frame_skip: int = 10, **kwargs):
